@@ -43,8 +43,10 @@ namespace AutoConsent
                     record.FullName = match.Groups[1].Value;
                     record.Telephone = match.Groups[2].Value;
                     record.Email = match.Groups[3].Value;
-                    record.Id = match.Groups[4].Value;
-                    record.Consents.AddRange(GetConsents(match.Groups[5].Value));
+                    var idAndConsentsArr = match.Groups[4].Value.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+                    record.Id = idAndConsentsArr[0].Trim();
+
+                    record.Consents.AddRange(GetConsents(match.Groups[4].Value));
                     records.Add(record);
                 }
                 _repository.Items.Add(Constants.Keys.Records.ToString(), records);
@@ -65,9 +67,8 @@ namespace AutoConsent
         private IEnumerable<string> GetConsents(string text)
         {
             IList<string> consents = new List<string>();
-            string cleanBody = text.Split(new string[] { @"--" }, StringSplitOptions.None)[0].Trim();
             Regex consentsRegex = new Regex(Constants.ConsentsPattern);
-            var matches = consentsRegex.Matches(cleanBody);
+            var matches = consentsRegex.Matches(text);
             var matchEnum = matches.GetEnumerator();
             while(matchEnum.MoveNext())
             {

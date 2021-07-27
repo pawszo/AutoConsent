@@ -12,7 +12,7 @@ namespace AutoConsent
         {
             Directory, Records
         }
-        public static string FullBodyPattern = @"^Dane\:[\n\t\r]+([^\r\n\t]*)[\n\t\r]+Telefon\:\s+(\d{5,})[\n\t\r]+E-mail\:\s+([^\r\n\t]*)[\r\n\t]*(\d+)[\r\n\t]+(Zgadzam się: .*)";
+        public static string FullBodyPattern = @"^Dane\:[\n\t\r]+([^\r\n\t]*)[\n\t\r]+Telefon\:\s+(\d{5,})[\n\t\r]+E-mail\:\s+([^\r\n\t]*)[\r\n\t]*(.*)";
         public static string ConsentsPattern = @"(Zgadzam się\:\s[^\n\r\t]*)";
 
 
